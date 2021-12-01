@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,9 +7,17 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GameObject prefabTile;
     public int xSize, ySize;
     public GameObject[,] grid;
-    void Start()
+
+    List<Tuple<int, GameObject>> abstractGrid = new List<Tuple<int, GameObject>>();
+
+    void Awake()
     {
         CreateGrid(xSize, ySize);
+    }
+
+    private void Update()
+    {
+        //CheckClosedShapes(starPoint, endPoint);
     }
 
     public void ColorTile(int x, int y, Color color)
@@ -17,29 +25,19 @@ public class GridManager : MonoBehaviour
         grid[x, y].GetComponent<SpriteRenderer>().color = color;
         grid[x, y].tag = "Green";
         grid[x, y].layer = 8;
+        GameManager.Instance.LevelDone();
     }
 
-    public Vector2 GetCurrent(int x, int y)
-    {
-        return grid[x, y].transform.position;
-    }
 
     private Vector2 GetSize(GameObject tile)
     {
         return new Vector2(tile.GetComponent<SpriteRenderer>().bounds.size.x, tile.GetComponent<SpriteRenderer>().bounds.size.y);
     }
 
-    public bool CheckBordersFull()
-    {
-        return true;
-
-
-
-    }
-
     private void CreateGrid(int width, int height)
     {
         grid = new GameObject[width, height];
+
         Vector2 startPos = this.transform.position;
         for (int x = 0; x < xSize; x++)
         {
@@ -49,10 +47,18 @@ public class GridManager : MonoBehaviour
                 tile.transform.parent = this.transform;
                 tile.transform.position = new Vector2(startPos.x + (GetSize(prefabTile).x * x), startPos.y + (GetSize(prefabTile).y * y));
                 tile.tag = "White";
+                tile.gameObject.AddComponent<BoxCollider2D>();
+                tile.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
                 tile.layer = 7;
                 grid[x, y] = tile;
+
+
+                abstractGrid.Add(new Tuple<int, GameObject> (0, grid[x, y]));
             }
         }
+
+        //var result1 = abstractGrid.Where(x => x.Item1 == 0);
+        //Debug.Log(result1.Count());
         MakeBorders();
     }
 
@@ -102,4 +108,5 @@ public class GridManager : MonoBehaviour
             tile2.gameObject.layer = 6;
         }
     }
+
 }
