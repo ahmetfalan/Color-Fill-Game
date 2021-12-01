@@ -4,34 +4,14 @@ using UnityEngine;
 
 public class FloodFill : MonoBehaviour
 {
+    private GridManager gridManager;
+
     [SerializeField]
     private float fillDelay = 0.01f;
-    public int xSize, ySize;
-    public GameObject prefabCube;
 
-    private GridManager gridManager;
-    private Vector2 GetSize(GameObject tile)
-    {
-        return new Vector2(tile.GetComponent<SpriteRenderer>().bounds.size.x, tile.GetComponent<SpriteRenderer>().bounds.size.y);
-    }
     void Start()
     {
         gridManager = this.GetComponent<GridManager>();
-
-        Vector2 startPos = this.transform.position;
-        for (int x = 0; x < xSize; x++)
-        {
-            for (int y = 0; y < ySize; y++)
-            {
-                GameObject tile = Instantiate(prefabCube);
-                tile.transform.parent = this.transform;
-                tile.transform.position = new Vector2(startPos.x + (GetSize(prefabCube).x * x), startPos.y + (GetSize(prefabCube).y * y));
-                tile.tag = "White";
-                tile.gameObject.AddComponent<BoxCollider2D>();
-                tile.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-                tile.layer = 7;
-            }
-        }
     }
 
     public IEnumerator Flood(int x, int y, Color oldColor, Color newColor)

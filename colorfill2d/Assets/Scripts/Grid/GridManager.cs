@@ -18,6 +18,7 @@ public class GridManager : MonoBehaviour
     private void Update()
     {
         //CheckClosedShapes(starPoint, endPoint);
+        CheckAllCorners();
     }
 
     public void ColorTile(int x, int y, Color color)
@@ -27,7 +28,16 @@ public class GridManager : MonoBehaviour
         grid[x, y].layer = 8;
         GameManager.Instance.LevelDone();
     }
-
+    public void CheckAllCorners()
+    {
+        /*if(grid[0, 0].GetComponent<SpriteRenderer>().color == Color.green && grid[xSize, ySize].GetComponent<SpriteRenderer>().color == Color.green && grid[0, ySize].GetComponent<SpriteRenderer>().color == Color.green && grid[xSize, 0].GetComponent<SpriteRenderer>().color == Color.green)
+        {
+            foreach (var item in grid)
+            {
+                item.GetComponent<SpriteRenderer>().color = Color.green;
+            }
+        }*/
+    }
 
     private Vector2 GetSize(GameObject tile)
     {
@@ -66,46 +76,70 @@ public class GridManager : MonoBehaviour
     {
         for (int i = 0; i < xSize; i++)
         {
-            GameObject tile1 = Instantiate(prefabTile);
-            tile1.transform.parent = this.transform;
-            tile1.transform.position = new Vector2(xSize - i - 1, ySize);
-            tile1.GetComponent<SpriteRenderer>().color = Color.black;
+            GameObject upBorder = Instantiate(prefabTile);
+            upBorder.transform.parent = this.transform;
+            upBorder.transform.position = new Vector2(xSize - i - 1, ySize);
+            upBorder.GetComponent<SpriteRenderer>().color = Color.black;
 
-            tile1.gameObject.AddComponent<BoxCollider2D>();
-            tile1.gameObject.tag = "Border";
-            tile1.gameObject.layer = 6;
+            upBorder.gameObject.AddComponent<Rigidbody2D>();
+            upBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            upBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            upBorder.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
+            upBorder.gameObject.AddComponent<BoxCollider2D>();
+            upBorder.gameObject.tag = "Border";
+            upBorder.gameObject.layer = 6;
 
 
-            GameObject tile2 = Instantiate(prefabTile);
-            tile2.transform.parent = this.transform;
-            tile2.transform.position = new Vector2(xSize - i - 1, -1);
-            tile2.GetComponent<SpriteRenderer>().color = Color.black;
 
-            tile2.gameObject.AddComponent<BoxCollider2D>();
-            tile2.gameObject.tag = "Border";
-            tile2.gameObject.layer = 6;
+
+            GameObject downBorder = Instantiate(prefabTile);
+            downBorder.transform.parent = this.transform;
+            downBorder.transform.position = new Vector2(xSize - i - 1, -1);
+            downBorder.GetComponent<SpriteRenderer>().color = Color.black;
+
+            downBorder.gameObject.AddComponent<Rigidbody2D>();
+            downBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            downBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            downBorder.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
+            downBorder.gameObject.AddComponent<BoxCollider2D>();
+            downBorder.gameObject.tag = "Border";
+            downBorder.gameObject.layer = 6;
         }
 
         for (int i = 0; i < ySize; i++)
         {
-            GameObject tile1 = Instantiate(prefabTile);
-            tile1.transform.parent = this.transform;
-            tile1.transform.position = new Vector2(xSize, ySize - i - 1);
-            tile1.GetComponent<SpriteRenderer>().color = Color.black;
+            GameObject rightBorder = Instantiate(prefabTile);
+            rightBorder.transform.parent = this.transform;
+            rightBorder.transform.position = new Vector2(xSize, ySize - i - 1);
+            rightBorder.GetComponent<SpriteRenderer>().color = Color.black;
 
-            tile1.gameObject.AddComponent<BoxCollider2D>();
-            tile1.gameObject.tag = "Border";
-            tile1.gameObject.layer = 6;
+            rightBorder.gameObject.AddComponent<Rigidbody2D>();
+            rightBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            rightBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            rightBorder.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
+            rightBorder.gameObject.AddComponent<BoxCollider2D>();
+            rightBorder.gameObject.tag = "Border";
+            rightBorder.gameObject.layer = 6;
 
 
-            GameObject tile2 = Instantiate(prefabTile);
-            tile2.transform.parent = this.transform;
-            tile2.transform.position = new Vector2(-1, ySize - i - 1);
-            tile2.GetComponent<SpriteRenderer>().color = Color.black;
 
-            tile2.gameObject.AddComponent<BoxCollider2D>();
-            tile2.gameObject.tag = "Border";
-            tile2.gameObject.layer = 6;
+
+            GameObject leftBorder = Instantiate(prefabTile);
+            leftBorder.transform.parent = this.transform;
+            leftBorder.transform.position = new Vector2(-1, ySize - i - 1);
+            leftBorder.GetComponent<SpriteRenderer>().color = Color.black;
+
+            leftBorder.gameObject.AddComponent<Rigidbody2D>();
+            leftBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            leftBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            leftBorder.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
+            leftBorder.gameObject.AddComponent<BoxCollider2D>();
+            leftBorder.gameObject.tag = "Border";
+            leftBorder.gameObject.layer = 6;
         }
     }
 
