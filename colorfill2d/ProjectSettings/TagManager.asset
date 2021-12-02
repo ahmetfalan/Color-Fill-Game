@@ -8,6 +8,10 @@ TagManager:
   - White
   - Green
   - Red
+  - LeftBorder
+  - RightBorder
+  - UpBorder
+  - DownBorder
   layers:
   - Default
   - TransparentFX

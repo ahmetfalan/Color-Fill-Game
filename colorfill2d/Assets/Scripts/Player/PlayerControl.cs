@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -25,6 +25,14 @@ public class PlayerControl : MonoBehaviour
 
     public bool canMove = false;
     public bool isDead = false;
+
+
+    bool leftBorder = false;
+    bool rightBorder = false;
+    bool upBorder = false;
+    bool downBorder = false;
+
+
     private void Awake()
     {
         Instance = this;
@@ -50,38 +58,38 @@ public class PlayerControl : MonoBehaviour
             rightCounter = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && !upBorder)
         {
-            canMove = true;
             nextPosition = Vector2.up;
             currentDirection = up;
+            canMove = true;
 
             leftCounter = 0;
             rightCounter = 0;
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) && !downBorder)
         {
-            canMove = true;
             nextPosition = Vector2.down;
             currentDirection = down;
+            canMove = true;
 
             leftCounter = 0;
             rightCounter = 0;
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D) && !rightBorder)
         {
-            canMove = true;
             nextPosition = Vector2.right;
             currentDirection = right;
+            canMove = true;
 
             leftCounter = 0;
             rightCounter = 0;
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) && !leftBorder)
         {
-            canMove = true;
             nextPosition = Vector2.left;
             currentDirection = left;
+            canMove = true;
 
             leftCounter = 0;
             rightCounter = 0;
@@ -92,22 +100,24 @@ public class PlayerControl : MonoBehaviour
             if (Vector3.Distance(destination, transform.position) <= 0.00001f)
             {
                 transform.localEulerAngles = currentDirection;
-                destination = transform.position + nextPosition;
+                if (canMove)
+                {
+                    destination = transform.position + nextPosition;
+                }
             }
 
-            gridManager.ColorTile(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y), Color.green);
+            try
+            {
+                gridManager.ColorTile(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y), Color.green);
+            }
+            catch
+            {
+            }
         }
- 
+
         RaycastHit2D frontHit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 1, layerMask);
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.up) * 1, Color.blue);
 
-        RaycastHit2D lefthit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 1, layerMask);
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.left) * 1, Color.red);
-        
-        RaycastHit2D righthit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 1, layerMask);
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.right) * 1, Color.green);
-
-        
         if (frontHit.collider != null)
         {
             canMove = false;
@@ -168,11 +178,67 @@ public class PlayerControl : MonoBehaviour
             canMove = true;
         }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Red")
         {
             isDead = true;
+        }
+
+        if (collision.tag == "LeftBorder")
+        {
+            leftBorder = true;
+        }
+        else if (collision.tag == "RightBorder")
+        {
+            rightBorder = true;
+        }
+        else if (collision.tag == "DownBorder")
+        {
+            downBorder = true;
+        }
+        else if (collision.tag == "UpBorder")
+        {
+            upBorder = true;
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "LeftBorder")
+        {
+            leftBorder = true;
+        }
+        else if (collision.tag == "RightBorder")
+        {
+            rightBorder = true;
+        }
+        else if (collision.tag == "DownBorder")
+        {
+            downBorder = true;
+        }
+        else if (collision.tag == "UpBorder")
+        {
+            upBorder = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "LeftBorder")
+        {
+            leftBorder = false;
+        }
+        else if (collision.tag == "RightBorder")
+        {
+            rightBorder = false;
+        }
+        else if (collision.tag == "DownBorder")
+        {
+            downBorder = false;
+        }
+        else if (collision.tag == "UpBorder")
+        {
+            upBorder = false;
         }
     }
 }

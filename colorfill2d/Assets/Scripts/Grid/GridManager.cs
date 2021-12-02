@@ -18,7 +18,6 @@ public class GridManager : MonoBehaviour
     private void Update()
     {
         //CheckClosedShapes(starPoint, endPoint);
-        CheckAllCorners();
     }
 
     public void ColorTile(int x, int y, Color color)
@@ -27,16 +26,6 @@ public class GridManager : MonoBehaviour
         grid[x, y].tag = "Green";
         grid[x, y].layer = 8;
         GameManager.Instance.LevelDone();
-    }
-    public void CheckAllCorners()
-    {
-        /*if(grid[0, 0].GetComponent<SpriteRenderer>().color == Color.green && grid[xSize, ySize].GetComponent<SpriteRenderer>().color == Color.green && grid[0, ySize].GetComponent<SpriteRenderer>().color == Color.green && grid[xSize, 0].GetComponent<SpriteRenderer>().color == Color.green)
-        {
-            foreach (var item in grid)
-            {
-                item.GetComponent<SpriteRenderer>().color = Color.green;
-            }
-        }*/
     }
 
     private Vector2 GetSize(GameObject tile)
@@ -87,7 +76,7 @@ public class GridManager : MonoBehaviour
             upBorder.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
             upBorder.gameObject.AddComponent<BoxCollider2D>();
-            upBorder.gameObject.tag = "Border";
+            upBorder.gameObject.tag = "UpBorder";
             upBorder.gameObject.layer = 6;
 
 
@@ -104,7 +93,7 @@ public class GridManager : MonoBehaviour
             downBorder.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
             downBorder.gameObject.AddComponent<BoxCollider2D>();
-            downBorder.gameObject.tag = "Border";
+            downBorder.gameObject.tag = "DownBorder";
             downBorder.gameObject.layer = 6;
         }
 
@@ -121,7 +110,7 @@ public class GridManager : MonoBehaviour
             rightBorder.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
             rightBorder.gameObject.AddComponent<BoxCollider2D>();
-            rightBorder.gameObject.tag = "Border";
+            rightBorder.gameObject.tag = "RightBorder";
             rightBorder.gameObject.layer = 6;
 
 
@@ -138,7 +127,7 @@ public class GridManager : MonoBehaviour
             leftBorder.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
 
             leftBorder.gameObject.AddComponent<BoxCollider2D>();
-            leftBorder.gameObject.tag = "Border";
+            leftBorder.gameObject.tag = "LeftBorder";
             leftBorder.gameObject.layer = 6;
         }
     }
