@@ -25,6 +25,7 @@ public class GridManager : MonoBehaviour
         grid[x, y].GetComponent<SpriteRenderer>().color = color;
         grid[x, y].tag = "Green";
         grid[x, y].layer = 8;
+
         GameManager.Instance.LevelDone();
     }
 
@@ -68,12 +69,8 @@ public class GridManager : MonoBehaviour
             GameObject upBorder = Instantiate(prefabTile);
             upBorder.transform.parent = this.transform;
             upBorder.transform.position = new Vector2(xSize - i - 1, ySize);
-            upBorder.GetComponent<SpriteRenderer>().color = Color.black;
 
-            upBorder.gameObject.AddComponent<Rigidbody2D>();
-            upBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-            upBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-            upBorder.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            upBorder.GetComponent<SpriteRenderer>().color = Color.black;
 
             upBorder.gameObject.AddComponent<BoxCollider2D>();
             upBorder.gameObject.tag = "UpBorder";
@@ -85,12 +82,8 @@ public class GridManager : MonoBehaviour
             GameObject downBorder = Instantiate(prefabTile);
             downBorder.transform.parent = this.transform;
             downBorder.transform.position = new Vector2(xSize - i - 1, -1);
-            downBorder.GetComponent<SpriteRenderer>().color = Color.black;
 
-            downBorder.gameObject.AddComponent<Rigidbody2D>();
-            downBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-            downBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-            downBorder.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            downBorder.GetComponent<SpriteRenderer>().color = Color.black;
 
             downBorder.gameObject.AddComponent<BoxCollider2D>();
             downBorder.gameObject.tag = "DownBorder";
@@ -102,12 +95,8 @@ public class GridManager : MonoBehaviour
             GameObject rightBorder = Instantiate(prefabTile);
             rightBorder.transform.parent = this.transform;
             rightBorder.transform.position = new Vector2(xSize, ySize - i - 1);
-            rightBorder.GetComponent<SpriteRenderer>().color = Color.black;
 
-            rightBorder.gameObject.AddComponent<Rigidbody2D>();
-            rightBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-            rightBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-            rightBorder.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            rightBorder.GetComponent<SpriteRenderer>().color = Color.black;
 
             rightBorder.gameObject.AddComponent<BoxCollider2D>();
             rightBorder.gameObject.tag = "RightBorder";
@@ -119,12 +108,8 @@ public class GridManager : MonoBehaviour
             GameObject leftBorder = Instantiate(prefabTile);
             leftBorder.transform.parent = this.transform;
             leftBorder.transform.position = new Vector2(-1, ySize - i - 1);
-            leftBorder.GetComponent<SpriteRenderer>().color = Color.black;
 
-            leftBorder.gameObject.AddComponent<Rigidbody2D>();
-            leftBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-            leftBorder.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-            leftBorder.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            leftBorder.GetComponent<SpriteRenderer>().color = Color.black;
 
             leftBorder.gameObject.AddComponent<BoxCollider2D>();
             leftBorder.gameObject.tag = "LeftBorder";
