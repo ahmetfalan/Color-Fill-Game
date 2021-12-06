@@ -1,6 +1,7 @@
 # Color Fill Game
 
 This repository created for case study of Maestro Game Studios.
+WebGL Build: https://play.unity.com/mg/other/webgl-builds-121696
 
 The case: Color Fill 3D Game on [Play Store](https://play.google.com/store/apps/details?id=com.gjg.colorfill3d&hl=tr&gl=US) or [App Store](https://apps.apple.com/us/app/color-fill-3d/id1473024868)
 
